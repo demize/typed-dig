@@ -1,0 +1,44 @@
+ci:
+  skip: [pytest]
+
+default_language_version:
+  python: python3.12
+
+repos:
+  # general checks (see here: https://pre-commit.com/hooks.html)
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: check-yaml
+        args: [--allow-multiple-documents]
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+
+  # ruff - linting + formatting
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: "v0.4.9"
+    hooks:
+      - id: ruff
+        name: ruff
+      - id: ruff-format
+        name: ruff-format
+
+  # bandit - find common security issues
+  - repo: https://github.com/pycqa/bandit
+    rev: 1.7.9
+    hooks:
+      - id: bandit
+        name: bandit
+        exclude: ^tests/
+        args:
+          - -r
+          - src
+
+  - repo: local
+    hooks:
+      - id: pytest
+        name: pytest
+        entry: poetry run pytest --cov=typed_dig tests
+        language: system
+        types: [python]
+        pass_filenames: false
