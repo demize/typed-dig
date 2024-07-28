@@ -1,7 +1,13 @@
 name: Tox CI Check
 on:
   push:
+    branches:
+      - main
+    tags:
+      - v*
   pull_request:
+    branches:
+      - main
 
 concurrency:
   group: check-${{ github.ref }}
