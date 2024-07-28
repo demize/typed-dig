@@ -10,7 +10,7 @@ class SupportsGetItem(Protocol):
     """
 
     def __getitem__(self: "SupportsGetItem", key: Any, /) -> Any:
-        pass
+        pass  # pragma: no cover
 
 
 # define a TypeVar to enable type checker compatibility
@@ -43,6 +43,10 @@ def dig(
     of values, and if those don't stringify well, the error output is going to
     be dictated by the input it receives.
 
+    This function should work with `list` objects as well; it's designed mainly
+    for dicts, but since lists support `__getitem__` as well, there is some
+    logic here to handle lists.
+
     ## Usage
 
     ```python
@@ -64,25 +68,31 @@ def dig(
     ```
     """
 
-    chain = ""  # the list of successful keys
     current = into
 
-    for key in keys:
-        if key not in current:
+    for i, key in enumerate(keys):
+        try:
+            current = current[key]
+        # dict-like objects will raise KeyError; lists will raise either
+        # IndexError or TypeError depending on the nature of the exception
+        except (KeyError, IndexError, TypeError) as e:
+            if isinstance(e, ValueError) and not isinstance(current, list):
+                # this should only happen with lists, so we should raise e here
+                # this also just shouldn't happen generally, hence the pragma
+                raise e  # pragma: no cover
+            chain = "".join(f"[{k}]" for k in keys[:i])
             error_message = (
-                f"Could not find {key} in dict. Successful chain: {chain}"
+                f"Could not find [{key}]. Successful chain: {chain}"
                 if chain
-                else f"Could not find {key} in dict."
+                else f"Could not find [{key}]."
             )
             raise KeyError(error_message)
-
-        chain = "".join([chain, f"[{key}]"])
-        current = current[key]
 
     if expected_type is object:
         return current  # type: ignore # this is going to be unknown -- and that's fine, the caller didn't specify a type!
 
     if not isinstance(current, expected_type):
+        chain = "".join(f"[{k}]" for k in keys)
         raise ValueError(
             f"{chain} was found, but the end value was not of the provided type. "
             + f"Expected {expected_type}, got {type(current)}."

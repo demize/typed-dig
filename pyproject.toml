@@ -10,7 +10,7 @@ repository = "https://github.com/demize/typed-dig"
 packages = [{ include = "typed_dig" }]
 
 [tool.poetry.dependencies]
-python = "^3.12"
+python = "^3.10"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.5.5"
@@ -30,7 +30,7 @@ testpaths = "tests"
 
 [tool.ruff]
 extend-exclude = ["__pycache__", "build", "dist"]
-target-version = "py312"
+target-version = "py310"
 line-length = 90
 src = ["src", "tests"]
 
