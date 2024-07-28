@@ -51,7 +51,7 @@ do_something_with_response(response_data)
 ```
 
 This is a fairly minor improvement, but it makes for much cleaner code, and
-reduces the likelihook of a logic error when repeating similar (but different)
+reduces the likelihood of a logic error when repeating similar (but different)
 checks across your codebase.
 
 ## Type Checker (LSP) Compatibility
@@ -61,7 +61,8 @@ you provide an `expected_type` when calling the `dig` function. This is
 accomplished by defining a `TypeVar` that's bound to both the `expected_type`
 parameter and used as the return type of the function. When not provided, it
 defaults to `object`, which may have different beahaviors in different type
-checkers.
+checkers. Of course, if you're not using a type checker, you might still find
+this function useful--and you won't have any reason to pass an `expected_type`!
 
 This library has been tested with the following type checkers:
 
