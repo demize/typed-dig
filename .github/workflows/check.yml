@@ -41,4 +41,6 @@ jobs:
       - name: Setup test suite
         run: tox -vv --notest
       - name: Run test suite
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: tox --skip-pkg-install
