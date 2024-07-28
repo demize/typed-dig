@@ -42,3 +42,9 @@ repos:
         language: system
         types: [python]
         pass_filenames: false
+      - id: pyanalyze
+        name: pyanalyze
+        entry: poetry run pyanalyze --config-file=pyproject.toml
+        language: system
+        types: [python]
+        pass_filenames: false

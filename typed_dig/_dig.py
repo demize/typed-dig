@@ -9,7 +9,10 @@ class SupportsGetItem(Protocol):
     These are the "dict-like" objects we aim to support.
     """
 
-    def __getitem__(self: "SupportsGetItem", key: Any, /) -> Any:
+    # ignore static analysis and skip coverage; this is a stub
+    def __getitem__(  # static analysis: ignore[missing_return]
+        self: "SupportsGetItem", key: Any, /
+    ) -> Any:
         pass  # pragma: no cover
 
 
