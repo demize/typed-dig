@@ -1,7 +1,13 @@
 name: Tox CI Check
 on:
   push:
+    branches:
+      - main
+    tags:
+      - v*
   pull_request:
+    branches:
+      - main
 
 concurrency:
   group: check-${{ github.ref }}
@@ -9,7 +15,7 @@ concurrency:
 
 jobs:
   test:
-    name: test with ${{ matrix.py }} on ${{ matrix.os }}
+    name: Tox CI - ${{ matrix.py }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -23,11 +29,11 @@ jobs:
           - macos-latest
           - windows-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - name: Setup python for test ${{ matrix.py }}
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.py }}
       - name: Install tox
@@ -35,4 +41,6 @@ jobs:
       - name: Setup test suite
         run: tox -vv --notest
       - name: Run test suite
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: tox --skip-pkg-install

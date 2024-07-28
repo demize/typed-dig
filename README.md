@@ -1,5 +1,7 @@
 # typed-dig
 
+[![PyPI version](https://badge.fury.io/py/typed-dig.svg)](https://badge.fury.io/py/typed-dig) [![Tox CI Check](https://github.com/demize/typed-dig/actions/workflows/check.yml/badge.svg)](https://github.com/demize/typed-dig/actions/workflows/check.yml) [![Coverage Status](https://coveralls.io/repos/github/demize/typed-dig/badge.svg?branch=main)](https://coveralls.io/github/demize/typed-dig?branch=main)
+
 A small Python library that provides a ruby-like `dig` function for accessing
 nested members of dictionaries (and "dict-like" structures, which support the
 `__getitem__` method).
@@ -74,6 +76,18 @@ Additionally, we've tested with both pyright and pylance as LSPs, and behavior
 between them is identical: when `expected_type` is provided, they recognize
 variables assigned by `dig` as being that type, and when left off they only
 provide `object`.
+
+## Installation
+
+`typed-dig` is available on [PyPI](https://pypi.org/project/typed-dig/), and
+can be installed with `pip`:
+
+```bash
+pip install typed-dig
+```
+
+It should also be installable with `poetry`, or any other tool that installs
+from PyPI.
 
 ## Usage
 
