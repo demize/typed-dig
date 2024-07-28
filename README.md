@@ -1,6 +1,6 @@
 # typed-dig
 
-[![Tox CI Check](https://github.com/demize/typed-dig/actions/workflows/check.yml/badge.svg)](https://github.com/demize/typed-dig/actions/workflows/check.yml) [![PyPI version](https://badge.fury.io/py/typed-dig.svg)](https://badge.fury.io/py/typed-dig)
+[![PyPI version](https://badge.fury.io/py/typed-dig.svg)](https://badge.fury.io/py/typed-dig) [![Tox CI Check](https://github.com/demize/typed-dig/actions/workflows/check.yml/badge.svg)](https://github.com/demize/typed-dig/actions/workflows/check.yml) [![Coverage Status](https://coveralls.io/repos/github/demize/typed-dig/badge.svg?branch=main)](https://coveralls.io/github/demize/typed-dig?branch=main)
 
 A small Python library that provides a ruby-like `dig` function for accessing
 nested members of dictionaries (and "dict-like" structures, which support the
