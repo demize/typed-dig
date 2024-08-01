@@ -78,11 +78,7 @@ def dig(
             current = current[key]
         # dict-like objects will raise KeyError; lists will raise either
         # IndexError or TypeError depending on the nature of the exception
-        except (KeyError, IndexError, TypeError) as e:
-            if isinstance(e, ValueError) and not isinstance(current, list):
-                # this should only happen with lists, so we should raise e here
-                # this also just shouldn't happen generally, hence the pragma
-                raise e  # pragma: no cover
+        except (KeyError, IndexError, TypeError):
             chain = "".join(f"[{k}]" for k in keys[:i])
             error_message = (
                 f"Could not find [{key}]. Successful chain: {chain}"
